@@ -1,0 +1,99 @@
+
+body {
+  background-color: wheat;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0
+  background-image: url('ME.jpg');
+  rep
+}
+
+select {
+  background-color: aqua;
+}
+
+#questions-container {
+  width: 80%;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: pink;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 5s;
+  background-color: 
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.question {
+  margin-bottom: 20px;
+  animation: slideIn 5s;
+}
+      
+
+.exosuit {
+  background-image: url('ME.jpg');
+  background-size: cover;
+  background-position: center;
+  border-radius: 200px;
+  padding: 20px;
+  width: 100px;
+  height: 200px;
+  position: relative;
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+  animation: move 5s infinite alternate;
+}
+
+@keyframes move {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-20px);
+  }
+}
+
+#questions-container {
+  animation: flash 3s infinite;
+}
+
+@keyframes flash {
+  0% { background-color: rebeccapurple; }
+  50% { background-color: violet; }
+  100% { background-color: purple; }
+  100%{
+    background-color: green
+  }
+}
+
+
+
+
+
+#flying-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 40px;
+  font-weight: bolder;
+  animation: fly 6s infinite;
+}
+
+@keyframes fly {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  25% { transform: translate(-30%, -70%) rotate(10deg); }
+  50% { transform: translate(-50%, -50%) rotate(0deg); }
+  75% { transform: translate(-70%, -30%) rotate(-10deg); }
+  100% { transform: translate(-50%, -50%) (0deg); }
+}

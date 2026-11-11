@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="CONTENT-TYPE" content="text/html; charset=UTF-8">
+    <title>Revision questions for junior school students</title>
+</head>
+<body>
+    <marquee>Taphy loves coding</marquee>
+    <link rel="stylesheet" href="Taphy.css">
+    <h1>Hello Students!</h1>
+    <select id="subject-select">
+        <option value="kenya">Kenyan Quiz</option>
+<option value="science">Science</option>
+        <option value="history">History</option>
+        <option value="English">English</option>
+        <option value="geography">Geography</option>
+       
+        <option value="chemistry">Chemistry</option>
+        <option value="physics">Physics</option>
+        <option value="computer">Computer Studies</option>
+    </select>
+    <div id="questions-container">
+    </div>
+    <script>
+        const subjects = {
+            kenya: [
+                { question: 'Which mountain is the highest in Africa?', answers: ['Mount Kilimanjaro', 'Mount Kenya', 'Mount Elgon'], correct: 'Mount Kilimanjaro' },
+                { question: 'What is the largest city in Kenya?', answers: ['Nairobi', 'Mombasa', 'Kisumu'], correct: 'Nairobi' },
+                { question: 'Which river is the longest in Kenya?', answers: ['Tana River', 'Athi River', 'Ewaso Ng\'iro River'], correct: 'Tana River' },
+                { question: 'What is the main export of Kenya?', answers: ['Tea', 'Coffee', 'Horticulture'], correct: 'Tea' },
+                { question: 'What is the capital city of Kenya?', answers: ['Nairobi', 'Mombasa', 'Kisumu'], correct: 'Nairobi' },
+                { question: 'Who is the current president of Kenya?', answers: ['Uhuru Kenyatta', 'William Ruto', 'Raila Odinga'], correct: 'William Ruto' }
+            ],
+            science: [
+                { question: 'What is the process by which plants make their own food?', answers: ['Photosynthesis', 'Respiration', 'Decomposition'], correct: 'Photosynthesis' },
+                { question: 'What is the largest planet in our solar system?', answers: ['Jupiter', 'Saturn', 'Earth'], correct: 'Jupiter' },
+                { question: 'What is the scientific term for the "building blocks of life"?', answers: ['Cells', 'Molecules', 'Tissues'], correct: 'Cells' },
+                { question: 'What is the process by which water moves through a plant?', answers: ['Transpiration', 'Respiration', 'Photosynthesis'], correct: 'Transpiration' },
+                { question: 'What is the largest mammal on Earth?', answers: ['Blue whale', 'Fin whale', 'Humpback whale'], correct: 'Blue whale' }
+            ],
+            history: [
+                { question: 'Who was the first president of Kenya?', answers: ['Jomo Kenyatta', 'Daniel arap Moi', 'Mwai Kibaki'], correct: 'Jomo Kenyatta' },
+            ],
+            english: [
+                { question: 'What is the opposite of "big"?', answers: ['Small', 'Large', 'Happy'], correct: 'Small' },
+            { question: 'What is the opposite of "laugh"?', answers: ['Cry', 'sob', 'weep'], correct: 'Cry' },
+            ],
+           
+            geography: [
+                { question: 'What is the capital city of Kenya?', answers: ['Nairobi', 'Mombasa', 'Kisumu'], correct: 'Nairobi' },
+            { question: 'Who is deputy president of Kenya?', answers: ['Wiliam Ruto', 'Rigathi gachagua', 'Professor kithure kindiki'], correct: 'Professor kithure kindiki' },
+            ],
+           
+            chemistry: [
+                { question: 'What is the symbol for gold?', answers: ['Ag', 'Au', 'Hg'], correct: 'Au' },
+            ],
+            physics: [
+                { question: 'What is the force that opposes motion?', answers: ['Friction', 'Gravity', 'Magnetism'], correct: 'Friction' },
+            ],
+            computer: [
+                { question: 'What is the brain of a computer?', answers: ['CPU', 'RAM', 'ROM'], correct: 'CPU' },
+                { question:'What is software in a computer?',answers:['parts of a computer that are tangible (touchable)','parts of a computer that are intangible(non-touchable)','parts of a computer that are visible'], correct:'parts of a computer that are intangible(non-touchable)'},
+       { question:'These are Output devices,which one is not?',answers:['Speaker','Monitor','Printer','CPU'], correct:'CPU'},
+            
+   { question:'These are Output devices,which one is not?',answers:['👀 A computer is an electronic device that processes data, stores information, and executes instructions from software programs 💻.','A computer is an electonic device that stores files','A computer is an electronic device we use to lear and play games'], correct:'👀 A computer is an electronic device that processes data, stores information, and executes instructions from software programs 💻.'}
+            ]
+        };
+        let currentSubject;
+        let subjectsArray = Object.keys(subjects);
+        let currentIndex = 0;
+        function loadQuiz(subject) {
+            currentSubject = subject;
+            const questionsContainer = document.getElementById('questions-container');
+            questionsContainer.innerHTML = `
+                <form id="quiz-form">
+                    ${subjects[subject].map((q, index) => `
+                        <div class="question">
+                            <p>${q.question}</p>
+                            ${q.answers.map(a => `<input type="radio" name="q${index}" value="${a}"> ${a}<br>`).join('')}
+                            <p id="result${index}"></p>
+                        </div>
+                    `).join('')}
+                   <button type="submit">Submit</button>
+                </form>
+            `;
+            document.getElementById('quiz-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const questions = document.querySelectorAll('.question');
+                const correctAnswers = subjects[subject].map(q => q.correct);
+                let score = 0;
+                questions.forEach((question, index) => {
+                    let selected = question.querySelector('input[type="radio"]:checked');
+                    let result = question.querySelector('p[id^="result"]');
+                    if (!selected) {
+                        result.innerText = 'Please select an answer!';
+                        result.style.color = 'red';
+                    } else if (selected.value === correctAnswers[index]) {
+                        result.innerText = 'Correct!';
+                        result.style.color = 'green';
+                        score++;
+                    } else {
+                        result.innerText = `Wrong! The correct answer is ${correctAnswers[index]}`;
+                        result.style.color = 'red';
+                    }
+                });
+                let scoreElement = document.createElement('p');
+                scoreElement.innerText = `Your score: ${score} out of ${questions.length}`;
+                scoreElement.style.fontWeight = 'bold';
+                scoreElement.style.fontSize = '1.2em';
+                document.getElementById('quiz-form').appendChild(scoreElement);
+                // Show next button
+                const nextButton = document.createElement('button');
+                nextButton.innerText = 'Next';
+                nextButton.onclick = () => {
+                    currentIndex = (currentIndex + 1) % subjectsArray.length;
+                    const nextSubject = subjectsArray[currentIndex];
+                    document.getElementById('subject-select').value = nextSubject;
+                    loadQuiz(nextSubject);
+                };
+                document.getElementById('questions-container').appendChild(nextButton);
+            });
+        }
+        document.getElementById('subject-select').addEventListener('change', (e) => {
+            currentIndex = subjectsArray.indexOf(e.target.value);
+            loadQuiz(e.target.value);
+        });
+        // Load Kenya Quiz by default
+        currentIndex = 0;
+        loadQuiz('kenya');
+    </script>
+    
+    
+
+<div class="exosuit">
+  My name Taphy Samson And coding is my favourite activity that i enjoy🚀
+</div>
+    <div id="flying-text">Taphy Samson</div> 
+    <button>
+        <a href="sam.html">sam</a>
+    </button>
+</body>
+</html>
